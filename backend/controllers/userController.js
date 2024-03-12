@@ -23,7 +23,9 @@ const createUser = asyncHandler(async(req,res) => {
     try {
         await newUser.save();
         genToken(res, newUser._id);
-        res.status(201).json({message: " User has been created successfully"});
+        res.status(201).json({
+            message: " User has been created successfully"
+        });
     } catch (err) {
         res.status(500);
         throw new Error("Invalid data provided!");   
@@ -40,7 +42,8 @@ const loginUser = asyncHandler(async (req,res)=>{
             genToken(res, currUser._id);
             res.status(201).json({
                 username : currUser.username,
-                email  :currUser.email
+                email  :currUser.email,
+                message: "User has benn logged in successfully"
             });
             return
         }
@@ -55,4 +58,53 @@ const logoutUser = asyncHandler(async (req,res)=>{
     res.status(200).json({message : "Logged out successfully !"});
 })
 
-export {createUser,loginUser, logoutUser};
+const getAllUsers = asyncHandler(async (req,res)=>{
+    const users = await User.find({});
+    res.json(users);
+})
+
+const getCurrentUser = asyncHandler(async (req,res)=>{
+    const user = await User.findById(req.user._id);
+    if(user){
+        res.json({
+            _id: user._id,
+            username : user.username,
+            email : user.email,
+            admin: user.admin
+        })
+    }
+    else{
+        res.status(404);
+        throw new Error("User not found!");
+    }
+})
+
+const updateCurrentUser = asyncHandler(async(req,res)=>{
+    const user = await User.findById(req.user._id);
+    if (user){
+        user.username = req.body.username || user.username;
+        user.email = req.body.email || user.email;
+
+        if(req.body.password){
+            const salt = await bcrypt.genSalt(15);
+            const hashedPassword = await bcrypt.hash(req.body.password, salt);
+            user.password = hashedPassword;
+        }
+
+        const updateUser = await user.save();
+
+        res.json({
+            message : "User detials have been updated successfully",
+            _id : updateUser._id,
+            username : updateUser.username,
+            email : updateUser.email
+        })
+
+    }
+    else{
+        res.status(404);
+        throw new Error("User not found!");
+    }
+})
+
+export {createUser,loginUser, logoutUser, getAllUsers, getCurrentUser, updateCurrentUser};
