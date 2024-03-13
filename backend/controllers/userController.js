@@ -43,7 +43,7 @@ const loginUser = asyncHandler(async (req,res)=>{
             res.status(201).json({
                 username : currUser.username,
                 email  :currUser.email,
-                message: "User has benn logged in successfully"
+                message: "User has logged in successfully"
             });
             return
         }
@@ -107,4 +107,56 @@ const updateCurrentUser = asyncHandler(async(req,res)=>{
     }
 })
 
-export {createUser,loginUser, logoutUser, getAllUsers, getCurrentUser, updateCurrentUser};
+const deleteUser = asyncHandler(async (req,res)=>{
+    const user = await User.findById(req.params.id);
+    if(user){
+        if(user.admin){
+            res.status(400);            
+            throw new Error("Cannot delete Admin User");
+        }
+
+        await User.deleteOne({_id : user._id});
+        res.json({message : "User has been removed successfully"});
+    }
+    else{
+        res.status(404);
+        throw new Error("User not found!");
+    }
+});
+
+const getUserByID = asyncHandler(async (req,res)=>{
+    const user = await User.findById(req.params.id).select("-password");
+    if(user){
+        res.json(user);
+    }
+    else{
+        res.status(404);
+        throw new Error("User not found!");
+    }
+})
+
+const updateUserByID = asyncHandler(async (req,res)=>{
+    const user = await User.findById(req.params.id);
+    if(user){
+        user.username = req.body.username || user.username;
+        user.email = req.body.email || user.email;
+        user.admin = Boolean(req.body.admin);
+
+        const updatedUser = await user.save();
+        res.json({
+            message : "The user has been updated successfully",
+            _id : updatedUser._id,
+            usename : updatedUser.username,
+            email : updatedUser.email,
+            admin : updatedUser.admin
+        })
+    }
+    else{
+        res.status(404);
+        throw new Error("User not found!");
+    }
+
+
+}) 
+
+export {createUser,loginUser, logoutUser, getAllUsers, getCurrentUser, updateCurrentUser, deleteUser, getUserByID, updateUserByID};
