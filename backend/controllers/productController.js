@@ -163,4 +163,22 @@ const getLatest = asyncHandler(async (req,res)=>{
     }
 })
 
-export {addProduct, updateProduct, deleteProduct, getProducts, getProductByID, getAllProducts, addProductReview, getTop, getLatest};
+const filterProducts = asyncHandler(async (req,res)=>{
+    try {
+        const {check, radio} = req.body;
+        let args ={};
+        if(check.length >0  ){
+            args.category = check;
+        }
+        if(radio.length > 0){
+            args.price = {$gte: radio[0], $lte : radio[1]};
+        }
+        const products = await Product.find(args);
+        res.json(products);
+    } 
+    catch (error) {
+        res.status(500).json(error.message);
+    }
+})
+
+export {addProduct, updateProduct, deleteProduct, getProducts, getProductByID, getAllProducts,filterProducts, addProductReview, getTop, getLatest};

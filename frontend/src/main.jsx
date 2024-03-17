@@ -5,10 +5,10 @@ import './index.css';
 import { Route, RouterProvider, createRoutesFromElements } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import store from "./redux/store.js";
 
 //Auth
-import Login from "./pages/Auth/Login.jsx";
+import Login from "./pages/auth/Login.jsx";
 
 
 

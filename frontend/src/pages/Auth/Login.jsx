@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../../components/Loader";
-import { useLoginMutation } from "../../redux/api/usersApiSlice";
-import { setCredentials } from "../../redux/features/auth/authSlice";
+import Loader from "../../components/Loader.jsx";
+import { useLoginMutation } from "../../redux/api/usersApiSlice.js";
+import { setCredentials } from "../../redux/features/auth/authSlice.js";
 import { toast } from "react-toastify";
 
 const Login = () => {
