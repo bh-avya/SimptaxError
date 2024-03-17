@@ -15,6 +15,7 @@ import AdminRoute from "./pages/Admin/AdminRoute";
 import Login from "./pages/Auth/Login.jsx";
 import Register from "./pages/Auth/Register";
 
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
