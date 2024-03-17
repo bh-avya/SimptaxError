@@ -69,10 +69,7 @@ const getCurrentUser = asyncHandler(async (req,res)=>{
     const user = await User.findById(req.user._id);
     if(user){
         res.json({
-            _id: user._id,
-            username : user.username,
-            email : user.email,
-            admin: user.admin
+            user
         })
     }
     else{
@@ -97,9 +94,7 @@ const updateCurrentUser = asyncHandler(async(req,res)=>{
 
         res.json({
             message : "User detials have been updated successfully",
-            _id : updateUser._id,
-            username : updateUser.username,
-            email : updateUser.email
+            user
         })
 
     }
@@ -147,10 +142,7 @@ const updateUserByID = asyncHandler(async (req,res)=>{
         const updatedUser = await user.save();
         res.json({
             message : "The user has been updated successfully",
-            _id : updatedUser._id,
-            usename : updatedUser.username,
-            email : updatedUser.email,
-            admin : updatedUser.admin
+            updatedUser
         })
     }
     else{
