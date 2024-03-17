@@ -141,14 +141,14 @@ const UserList = () => {
                         )}
                       </td>
                       <td className="px-4 py-2">
-                        {user.isAdmin ? (
+                        {user.admin ? (
                           <FaCheck style={{ color: "green" }} />
                         ) : (
                           <FaTimes style={{ color: "red" }} />
                         )}
                       </td>
                       <td className="px-4 py-2">
-                        {!user.isAdmin && (
+                        {!user.admin && (
                           <div className="flex">
                             <button
                               onClick={() => deleteHandler(user._id)}

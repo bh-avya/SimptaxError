@@ -24,7 +24,8 @@ const createUser = asyncHandler(async(req,res) => {
         await newUser.save();
         genToken(res, newUser._id);
         res.status(201).json({
-            message: " User has been created successfully"
+            message: " User has been created successfully",
+            newUser
         });
     } catch (err) {
         res.status(500);
@@ -43,7 +44,8 @@ const loginUser = asyncHandler(async (req,res)=>{
             res.status(201).json({
                 username : currUser.username,
                 email  :currUser.email,
-                message: "User has logged in successfully"
+                message: "User has logged in successfully",
+                admin : currUser.admin
             });
             return
         }
