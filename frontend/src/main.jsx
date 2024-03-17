@@ -6,31 +6,10 @@ import { Route, RouterProvider, createRoutesFromElements } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import Profile from "./pages/User/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import UserList from "./pages/Admin/UserList";
 import AdminRoute from "./pages/Admin/AdminRoute";
-
 
 //Auth
 import Login from "./pages/Auth/Login.jsx";
