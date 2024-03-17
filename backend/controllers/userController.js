@@ -94,7 +94,7 @@ const updateCurrentUser = asyncHandler(async(req,res)=>{
 
         res.json({
             message : "User detials have been updated successfully",
-            user
+            updateUser
         })
 
     }
