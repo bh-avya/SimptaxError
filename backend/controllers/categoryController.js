@@ -16,7 +16,7 @@ const createCategory = asyncHandler(async (req, res) => {
         const category = await new Category({name}).save();
         res.json({
             message:"Category has been created",
-            name:category.name,
+            category,
         });
 
     } 
@@ -40,7 +40,7 @@ const updateCategory = asyncHandler(async (req, res) => {
         const updatedCategory = await category.save();
         res.json({
             "message" : "Category has been updated",
-            "name" : category.name
+            updatedCategory
         });
     } 
     catch (error) {
@@ -76,7 +76,7 @@ const readCategoryByID = asyncHandler(async (req, res) => {
     try {
         const category = await Category.findOne({ _id: req.params.id });
         res.json({
-            name : category.name
+            category
         });
     } catch (error) {
         console.log(error);

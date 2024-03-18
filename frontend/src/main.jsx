@@ -12,8 +12,8 @@ import UserList from "./pages/Admin/UserList";
 import AdminRoute from "./pages/Admin/AdminRoute";
 
 //Auth
-import Login from "./pages/Auth/Login.jsx";
-import Register from "./pages/Auth/Register";
+import Login from "../src/pages/auth/Login.jsx";
+import Register from "./pages/auth/Register.jsx";
 
 
 const router = createBrowserRouter(
